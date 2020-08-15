@@ -62,8 +62,6 @@ export const connect = (mapStateToProps, mapDispatchToProps) => {
                 const stateProps = mapStateToProps(store.getState());
                 const eventProps = mapDispatchToProps((...args)=>store.dispatch(...args))
 
-                console.log("computeProps:::", stateProps, eventProps)
-
                 return {...stateProps, ...eventProps}
             }
 
@@ -72,7 +70,6 @@ export const connect = (mapStateToProps, mapDispatchToProps) => {
                 
                 
                 const {mergeProps} = this.state;
-                console.log("contextType:::",mergeProps)
                 return (
                     <ConnectComponent {...mergeProps} {...this.props}/>
                 )

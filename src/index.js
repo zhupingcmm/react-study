@@ -4,9 +4,10 @@ import App from "./toutiao";
 import store from "./toutiao/store";
 // import {Provider} from "react-redux";
 import {Provider} from "../react-redux-fake";
+import AppContainer from "./toutiao/router";
 ReactDOM.render(
     <Provider store={store}>
-        <App/>
+        <AppContainer/>
     </Provider>,
     document.getElementById('root')
 )

@@ -1,10 +1,13 @@
-import React,{useEffect,useState} from "react";
+import React,{useEffect,useState,lazy,Suspense} from "react";
 import List from "./list";
 import * as Pages from "./components";
 // import {connect} from "react-redux";
 // import store from "./store";
+import {Link, Route} from "react-router-dom";
 
 import {connect} from "../../react-redux-fake";
+
+const LazyComponent = lazy(()=>import("../code-spliting"));
 
 function App(props){
     useEffect(()=>{
@@ -17,7 +20,6 @@ function App(props){
     }
 
     function updateList (){
-        console.log("props:::",props)
         getList().then(({data})=>{
             props.listUpdate({
                 type:"PUSH_LIST",
@@ -33,16 +35,28 @@ function App(props){
         }
     }
 
-    console.log("props list:: ",props)
+    function skip(){
+        console.log("skip======");
+        console.log("props",props);
+        props.history.push('/detail/' + "i6727634212259643910",{'ab':1});
+    }
 
     return(
         <div>
+            <div>
+                <div>
+                    推薦視頻
+                    <Link to="/setting">+</Link>
+                </div>
+            </div>
             <List
                 dataSource={props.list}
                 renderItem={item=>{
                     const {type, data} = item;
                     const ItemComponent = Pages[type];
-                    return <ItemComponent data={data} />
+                    return <ItemComponent
+                            onClick={skip} 
+                            data={data}/>
                 }}
             />
         </div>
@@ -51,8 +65,6 @@ function App(props){
 
 
 function mapStateToProps(state){
-    console.log("state::",state)
-
     return {
         list: state.list
     }

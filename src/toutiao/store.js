@@ -4,7 +4,6 @@ import {createStore} from "redux";
 const toutiaoProcessor = (state, action) => {
     const {type,data} = action;
 	if (action.type === 'PUSH_LIST') {
-        console.log("PUSH_LIST",{...state});
 		return {
 			...state,
 			list: state.list.concat(action.data)
